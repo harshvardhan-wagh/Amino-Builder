@@ -99,7 +99,7 @@ Response:
 
 ## 🧑‍💻 Developer Notes
 
-* Make sure to use Node.js **v18+**
+* Make sure to use Node.js **v22+**
 * Frontend and backend run independently for development
 * When using Docker, both containers communicate automatically
 * For production, you can build the frontend and serve it directly from the backend
@@ -110,7 +110,6 @@ Response:
 
 MIT © 2025 – Amino Builder Project
 
-```
 
 
 
