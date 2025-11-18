@@ -213,12 +213,34 @@ export default function AminoAcidBuilder() {
                 Calculate Properties
                 </button>
 
-                {calcResult && (
-                <div className="mt-4 p-4 bg-green-50 rounded-lg text-gray-800 shadow-md">
-                    <div><strong>Sequence:</strong> {calcResult.sequence}</div>
-                    <div><strong>Molecular Weight:</strong> {calcResult.molecularWeight}</div>
+               {calcResult && (
+                <div className="mt-4 p-4 bg-green-50 rounded-lg text-gray-800 shadow-md space-y-2">
+
+                  <div><strong>Sequence:</strong> {calcResult.sequence}</div>
+
+                  <div><strong>Length:</strong> {calcResult.length} amino acids</div>
+
+                  <div><strong>Molecular Weight:</strong> {calcResult.molecularWeight} Da</div>
+
+                  <div><strong>Molecular Formula:</strong> {calcResult.molecularFormula}</div>
+
+                  <div><strong>Volume:</strong> {calcResult.volume} Å³</div>
+
+                  <div><strong>Net Charge:</strong> {calcResult.netCharge}</div>
+
+                  <div className="mt-2">
+                    <strong>Amino Acid Composition:</strong>
+                    <ul className="ml-4 list-disc">
+                      <li>Acidic: {calcResult.composition.Acidic}</li>
+                      <li>Basic: {calcResult.composition.Basic}</li>
+                      <li>Polar Uncharged: {calcResult.composition.Polar_Uncharged}</li>
+                      <li>Nonpolar: {calcResult.composition.Nonpolar}</li>
+                    </ul>
+                  </div>
+
                 </div>
-                )}
+              )}
+
             </div>
             )}
 
