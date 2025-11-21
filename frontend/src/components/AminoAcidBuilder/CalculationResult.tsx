@@ -1,4 +1,3 @@
-import React from 'react';
 import type { CalculationResult as CalcResultType } from './types';
 
 interface CalculationResultProps {

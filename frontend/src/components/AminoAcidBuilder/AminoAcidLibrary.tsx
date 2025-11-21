@@ -1,4 +1,3 @@
-import React from 'react';
 import type { AminoAcid } from './types';
 
 interface AminoAcidLibraryProps {

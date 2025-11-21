@@ -1,4 +1,3 @@
-import React from 'react';
 import { Cuboid } from "lucide-react";
 
 interface EmptyModelPlaceholderProps {
