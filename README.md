@@ -1,5 +1,5 @@
 
-# 🧩 Amino Builder
+# 🧩 Amino Acid Builder
 
 A visual drag-and-drop web app to build peptide/amino acid sequences and calculate basic properties (like molecular weight) using a Node.js + Express backend and React + Vite frontend.
 
