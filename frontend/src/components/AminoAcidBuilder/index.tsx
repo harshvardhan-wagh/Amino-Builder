@@ -11,11 +11,15 @@ import SequenceDropZone from './SequenceDropZone';
 import CalculationResult from './CalculationResult';
 import EmptyModelPlaceholder from './EmptyModelPlaceholder';
 
+
 export default function AminoAcidBuilder() {
   const [chain, setChain] = useState<ChainItem[]>([]);
   const [chainName, setChainName] = useState('');
   const [draggedAcid, setDraggedAcid] = useState<AminoAcid | null>(null);
   const [calcResult, setCalcResult] = useState<CalcResultType | null>(null);
+  const [history, setHistory] = useState<ChainItem[][]>([]);
+  const [future, setFuture] = useState<ChainItem[][]>([]);
+
 
   const handleDragStart = (acid: AminoAcid) => {
     setDraggedAcid(acid);
@@ -28,20 +32,45 @@ export default function AminoAcidBuilder() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     if (draggedAcid) {
+      setHistory(prev => [...prev, chain]);
+      setFuture([]);
+
       setChain([...chain, { ...draggedAcid, id: Date.now() }]);
       setDraggedAcid(null);
     }
   };
 
   const removeFromChain = (id: number) => {
+    setHistory(prev => [...prev, chain]);
+    setFuture([]);
     setChain(chain.filter(item => item.id !== id));
   };
 
   const clearChain = () => {
+    setHistory(prev => [...prev, chain]);
+    setFuture([]);
     setChain([]);
     setChainName('');
     setCalcResult(null);
   };
+
+  const undo = () => {
+  if (history.length === 0) return;
+  const previous = history[history.length - 1];
+
+  setHistory(history.slice(0, -1));
+  setFuture([chain, ...future]);
+  setChain(previous);
+};
+
+const redo = () => {
+  if (future.length === 0) return;
+  const next = future[0];
+
+  setFuture(future.slice(1));
+  setHistory(prev => [...prev, chain]);
+  setChain(next);
+};
 
   const exportSequence = () => {
     const sequence = chain.map(a => a.code).join('');
@@ -99,6 +128,10 @@ export default function AminoAcidBuilder() {
           onRemoveItem={removeFromChain}
           onClear={clearChain}
           onExport={exportSequence}
+          onUndo={undo}
+          onRedo={redo}
+          canUndo={history.length > 0}
+          canRedo={future.length > 0}
         />
 
         <CalculationResult 

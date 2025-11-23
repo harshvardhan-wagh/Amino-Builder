@@ -9,6 +9,11 @@ interface SequenceDropZoneProps {
   onRemoveItem: (id: number) => void;
   onClear: () => void;
   onExport: () => void;
+  onUndo: () => void;
+  onRedo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
+
 }
 
 export default function SequenceDropZone({
@@ -17,7 +22,11 @@ export default function SequenceDropZone({
   onDrop,
   onRemoveItem,
   onClear,
-  onExport
+  onExport,
+  onUndo,
+  onRedo,
+  canUndo,
+  canRedo
 }: SequenceDropZoneProps) {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
@@ -25,7 +34,24 @@ export default function SequenceDropZone({
         <h2 className="text-lg font-semibold text-gray-700">
           Your Sequence ({chain.length} amino acids)
         </h2>
+
         <div className="flex gap-2">
+          <button
+            onClick={onUndo}
+            disabled={!canUndo}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg 
+               hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          >
+            Undo
+          </button>
+          <button
+            onClick={onRedo}
+            disabled={!canRedo}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg 
+               hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          >
+            Redo
+          </button>
           <button
             onClick={onExport}
             disabled={chain.length === 0}
@@ -34,6 +60,7 @@ export default function SequenceDropZone({
             <Download size={16} />
             Export
           </button>
+          
           <button
             onClick={onClear}
             disabled={chain.length === 0}
