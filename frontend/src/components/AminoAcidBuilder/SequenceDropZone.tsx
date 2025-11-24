@@ -85,14 +85,15 @@ export default function SequenceDropZone({
           chain.map((acid, index) => (
             <div
               key={acid.id}
-              className={`${acid.color} text-white px-4 py-3 rounded-lg shadow-md relative group`}
+              className={`${acid.color} text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-md relative cursor-pointer`}
               title={acid.name}
             >
-              <div className="font-bold text-lg">{acid.code}</div>
-              <div className="text-xs">{acid.name}</div>
-              <div className="absolute -top-1 -left-1 bg-gray-700 text-white text-xs px-2 py-0.5 rounded-full">
-                {index + 1}
-              </div>
+              {acid.code}
+
+              {/* <div className="absolute -top-1 -left-1 bg-gray-700 text-white text-xs px-2 py-0.5 rounded-full">
+              {index + 1}
+              </div> */}
+              
               <button
                 onClick={() => onRemoveItem(acid.id)}
                 className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
