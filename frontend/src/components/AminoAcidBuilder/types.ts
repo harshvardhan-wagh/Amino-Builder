@@ -2,6 +2,7 @@ export interface AminoAcid {
     code: string;
     name: string;
     color: string;
+    groups : string[];
   }
   
   export interface ChainItem extends AminoAcid {

@@ -19,7 +19,24 @@ export default function AminoAcidBuilder() {
   const [calcResult, setCalcResult] = useState<CalcResultType | null>(null);
   const [history, setHistory] = useState<ChainItem[][]>([]);
   const [future, setFuture] = useState<ChainItem[][]>([]);
+  const [activeFilter, setActiveFilter] = useState("all");
 
+
+
+  const insertPastedSequence = (seq: string) => {
+    const chars = seq.toUpperCase().replace(/[^A-Z]/g, '').split('');
+
+    const mapped = chars
+      .map(code => aminoAcids.find(a => a.code === code))
+      .filter(Boolean)
+      .map(acid => ({ ...acid!, id: Date.now() + Math.random() }));
+
+    if (mapped.length > 0) {
+      setHistory(prev => [...prev, chain]);
+      setFuture([]);
+      setChain(mapped);
+    }
+  };
 
   const handleDragStart = (acid: AminoAcid) => {
     setDraggedAcid(acid);
@@ -114,11 +131,20 @@ const redo = () => {
         <AminoAcidLibrary 
           aminoAcids={aminoAcids}
           onDragStart={handleDragStart}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
         />
 
         <SequenceNameInput 
           value={chainName}
-          onChange={setChainName}
+          onChange={(val) => {
+            setChainName(val);
+            if (val.trim() === "") {
+              clearChain();
+              return;
+            }
+          insertPastedSequence(val);   
+          }}
         />
 
         <SequenceDropZone 
