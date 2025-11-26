@@ -19,6 +19,8 @@ export default function AminoAcidBuilder() {
   const [calcResult, setCalcResult] = useState<CalcResultType | null>(null);
   const [history, setHistory] = useState<ChainItem[][]>([]);
   const [future, setFuture] = useState<ChainItem[][]>([]);
+  const [activeFilter, setActiveFilter] = useState("all");
+
 
 
   const insertPastedSequence = (seq: string) => {
@@ -129,6 +131,8 @@ const redo = () => {
         <AminoAcidLibrary 
           aminoAcids={aminoAcids}
           onDragStart={handleDragStart}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
         />
 
         <SequenceNameInput 
